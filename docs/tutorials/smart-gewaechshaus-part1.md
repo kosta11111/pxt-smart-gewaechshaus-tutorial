@@ -25,14 +25,18 @@ Klicke auf die **Codeschnipsel** im Text, um direkt zu den **Codeblöcken** zu k
 
 ## Schritt 1
 
-Als ersten Schritt **ziehen** wir einen ``||logic:Wenn-Block||`` 
-in den ``||basic:dauerhaft||`` Codeblock **rein**. 
+Zuerst müssen wir **Sensoren** und **Aktoren** deklarieren. In anderen Worten
+richten wir diese ins Programm ein, um mit den Sensoren und Aktoren arbeiten zu können
 
 * **Ziehe** den ``||smartfeldSensoren:init Sonnenlicht sensor||`` Codeblock in den **Start**
 
-* Mache das gleiche mit den ``||smartfeldSensoren:innit Gassensor||`` und dem 
+* Mache das gleiche mit den ``||smartfeldSensoren:innit Gassensor||`` und dem  ``||smartfeldSensoren:setze als 400ppm Kalibrationswert||`` Codeblock
 
-Das ist wichtig, um zu prüfen, ob unser Objekt noch da ist.
+* **Ziehe** den ``||neopixel:setze strip||`` ebenfalls in den **Startblock**
+
+* **Ändere** die Pixel auf **16**
+
+
 
 ```blocks 
 smartfeldSensoren.initSunlight()
@@ -43,66 +47,49 @@ let strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
 
 ## Schritt 2
 
-Jetzt wollen wir, dass der Cube einen Alarm schlägt, wenn der Ultraschallsensor
-nichts in 10 cm Reichweite erkennt.
+Jetzt teilen wir dem Programm mit einer Wenn-Abfrage
 
-* **Ziehe** den ``||logic:0 < 0||`` Block ins **Wahr-Feld** des **Wenn-Codeblocks** rein
+* **Ziehe** den ``||logic:wenn wahr dann...ansonsten||`` Block in den **Dauerhaft-Codeblock**
 
-* **Ziehe** den ``||smartfeldSensoren:Distanz in cm||`` Codeblock in die rechte Null
+* **Ziehe** den ``||logic:0 < 0||`` Codeblock ins **Wahr-Feld** und ändere das **<** zu einem **> mit Unterstrich**
 
-* **Ändere** beim ``||smartfeldSensoren:Distanz in cm||`` Codeblock P0 auf **P1**
+* **Schreibe** in die linke null die Zahl **1000**
 
 * **Schreibe** in die linke Null eine **10**
 
-* Der Codeblock ``||music:spiele Ton||`` kommt in den **Wenn-Codeblock**
-
-* Ändere den **Schlag** auf **1/2**, um einen typischen Alarmsound zu bekommen
+* **Ziehe** in die rechte Null den ``||smartfeldSensoren:gib sichtbares Licht||`` Block rein
 
 ```blocks
 basic.forever(function () {
-    if (smartfeldSensoren.measureInCentimetersV2(DigitalPin.P1) > 10) {
-        music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
-    } 
+    if (1000 >= smartfeldSensoren.getHalfWord_Visible()) {
+        
+    } else {
+        
+    }
 })
 ```
+
 ## Schritt 3
 
-Der IoT-Cube funktioniert jetzt als eine Alarmanlage, aber man kann den Alarm nicht deaktivieren.
-Das Deaktivieren implementieren wir mit den A + B-Knöpfen.
+Jetzt Programmieren wir, dass bei zu wenig Licht (unter 1000 LUX) der LED-Strip
+leuchtet, und sonst ausgeschalten ist.
 
-* **Ziehe** den ``||input: Wenn Knopf A geklickt||`` Codeblock **zweimal** in die Umgebung rein
+* **Ziehe** in den **Wenn-Block** den ``||neopixel:strip zeige Farbe||`` und den ``||neopixel:strip anzeigen||`` rein
  
-* **Ändere bei einem** der Codeblöcke **den Buchstaben** auf ein **B** um
+* **Versichere**, dass die anzezeigt Farbe **weiß** ist
 
-* **Erstelle** eine neue ``||Variables:Variable||`` namens **"aktiv"**
+* **Ziehe** in das **Ansonsten-Feld** den ``||neopixel:strip ausschalten||`` und den ``||neopixel:strip anzeigen||`` rein
 
-* **Füge** ``||Variables:setze aktiv auf 0||`` in ``||input: Wenn Knopf B geklickt||`` ein
 
-* **Wiederhole** den Schritt bei ``||input: Wenn Knopf A geklickt||`` und änder die Zahl auf 1
-
-* **Füge** den ``||loops:während||`` Codeblock oben in den ``||basic:dauerhaft||`` Block hinzu 
-
-* **Ziehe** den dort **bereits stehenden Code in den Während-Codeblock**
-
-* **Ziehe** ins **Falsch-Feld** des **Während-Codeblocks** die neue Variable ``||Variables:aktiv||``
-rein.
-
-Drücke auf **A**, um die Alarmanlage einzuschalten und auf **B**, um sie zu deaktivieren.
 
 ```blocks
-input.onButtonPressed(Button.A, function () {
-    aktiv = 1
-})
-
-input.onButtonPressed(Button.B, function () {
-    aktiv = 0
-})
-
 basic.forever(function () {
-    while (aktiv) {
-        if (smartfeldSensoren.measureInCentimetersV2(DigitalPin.P1) > 10) {
-            music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
-        } 
+    if (1000 >= smartfeldSensoren.getHalfWord_Visible()) {
+        strip.showColor(neopixel.colors(NeoPixelColors.White))
+        strip.show()
+    } else {
+        strip.clear()
+        strip.show()
     }
 })
 ```
@@ -111,9 +98,8 @@ basic.forever(function () {
 
 Du hast den ersten Teil des Tutorials erfolgreich absolviert!🙌
 
-Lade den Code auf dein IoT-Cube herunter, und aktiviere die Alarmanlage durchs drücken
-auf den A-Button. Lege ein Objekt vor dem Ultraschallsensor und schau was passiert, wenn
-du diesen wegnimmst.
+Lade den Code auf dein IoT-Cube herunter und leuchte mit deiner Handytaschenlampe
+auf den Sonnenlichtsensor. Leuchtet der LED-Strip?
 
 Klicke [Hier](https://makecode.microbit.org/#tutorial:github:kosta11111/pxt-smart-alarm-tutorial/docs/tutorials/smart-alarm-part2),
 um den zweiten Part des Tutorials zu starten!
