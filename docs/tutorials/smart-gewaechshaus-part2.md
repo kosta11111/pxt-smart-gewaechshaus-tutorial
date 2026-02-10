@@ -12,88 +12,73 @@ Dashboard in der Claviscloud.
 
 ## Wichtig! @showdialog
 
-Falls du **Probleme** beim Tutorial hast, kannst du beim Klicken auf der **Glühbirne** sehen,
-wie der Code ausschauen soll. 
-![Tutorialbild](https://github.com/kosta11111/pxt-smart-alarm-tutorial/blob/master/docs/imgs/Gl%C3%BChbirne.png?raw=true)
-
-Klicke auf die **Codeschnipsel** im Text, um direkt zu den **Codeblöcken** zu kommen!
-![Tutorialbild](https://github.com/kosta11111/pxt-smart-alarm-tutorial/blob/master/docs/imgs/Codeschnipsel.png?raw=true)
+**Schließe das Fenster des vorherigen Tutorials**, um beim Herunterladen des Codes Fehler zu vermeiden!
 
 ## Schritt 1
 
-Zuerst müssen wir **Sensoren** und **Aktoren** deklarieren. In anderen Worten
-richten wir diese ins Programm ein, um mit den Sensoren und Aktoren arbeiten zu können
+* **Ziehe** den ``||basic:beim Start||`` Block ins Programm.
 
-* **Ziehe** den ``||smartfeldSensoren:init Sonnenlicht sensor||`` Codeblock in den **Start**
+* **Ziehe** den ``||IoTCube:LoRa Netzwerk-Verbindung||`` Block in den ``||basic:beim Start||``
+Block **rein**.
 
-* **Ziehe** den ``||neopixel:setze strip||`` ebenfalls in den **Startblock**
+* **Ziehe** danach den ``||loops:während||`` Block **darunter** rein 
 
-* **Ändere** die Pixel auf **16**
+* **Füge** in das **Falsch-Feld** den ``||logic:nicht||`` Codeblock ein
+
+* In den ``||logic:nicht||`` Codeblock kommt der ``||IoTCube:Gerätstatus-Bit||`` Block
+
+* **Ändere** den ``||IoTCube:Gerätstatus-Bit||`` von **Initialisieren** auf **Verbunden**
+
+* **Ziehe** mit dem ``||basic:zeige Symbol||`` ein X in die **Während-Schleife**
+
+* **Wiederhole** den Schritt unter des **Während-Codeblocks** mit einem Haken
 
 
 
 ```blocks 
+let spaeterSenden = false
+let msBeiLetztemSenden = 0
+IoTCube.LoRa_Join(
+eBool.enable,
+eBool.enable,
+10,
+8
+)
+while (!(IoTCube.getStatus(eSTATUS_MASK.JOINED))) {
+    basic.showIcon(IconNames.No)
+}
+basic.showIcon(IconNames.Yes)
 smartfeldSensoren.initSunlight()
 let strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
 ```
 
 ## Schritt 2
 
-Jetzt teilen wir dem Programm mit einer Wenn-Abfrage
+Wir wollen jede 20. Sekunde dem Dashboard die aktuelle Lux (Lichteinheit) schicken, die der
+Sonnenlichtsensor misst
 
-* **Ziehe** den ``||logic:wenn wahr dann...ansonsten||`` Block in den **Dauerhaft-Codeblock**
+* **Ziehe** den ``||loops:alle 500 ms||`` Block in die leere Fläche
 
-* **Ziehe** den ``||logic:0 < 0||`` Codeblock ins **Wahr-Feld** und ändere das **<** zu einem **≥**
+* **Ändere** die **500 ms** zu **20000 ms**
 
-* **Schreibe** in die linke null die Zahl **1000**
+* **Ziehe** den ``||functions:Aufruf sendeDaten||`` Codeblock in die ``||loops:alle 20000 ms||`` Schleife
 
-* **Ziehe** in die rechte Null den ``||smartfeldSensoren:gib sichtbares Licht||`` Block rein
-
-```blocks
-basic.forever(function () {
-    if (1000 >= smartfeldSensoren.getHalfWord_Visible()) {
-        
-    } else {
-        
-    }
-})
-```
-
-## Schritt 3
-
-Jetzt Programmieren wir, dass bei zu wenig Licht (unter 1000 LUX) der LED-Strip
-leuchtet, und sonst ausgeschalten ist.
-
-* **Ziehe** in den **Wenn-Block** den ``||neopixel:strip zeige Farbe||`` und den ``||neopixel:strip anzeigen||`` rein
- 
-* **Versichere**, dass die anzezeigt Farbe **weiß** ist
-
-* **Ziehe** in das **Ansonsten-Feld** den ``||neopixel:strip ausschalten||`` und den ``||neopixel:strip anzeigen||`` rein
-
-Der ``||neopixel:strip anzeigen||`` Codeblock ist wichtig, um bei änderungen den LED-Strip zu aktualisieren.
-
+* **Ziehe** den ``||smartfeldSensoren:gib sichtbares Licht||`` Codeblock in die **0** des ``||functions:Aufrufs sendeDaten||``
 
 ```blocks
-basic.forever(function () {
-    if (1000 >= smartfeldSensoren.getHalfWord_Visible()) {
-        strip.showColor(neopixel.colors(NeoPixelColors.White))
-        strip.show()
-    } else {
-        strip.clear()
-        strip.show()
-    }
+loops.everyInterval(20000, function () {
+    sendeDaten(smartfeldSensoren.getHalfWord_Visible())
 })
 ```
-
 ## Glückwunsch🤩
 
-Du hast den ersten Teil des Tutorials erfolgreich absolviert!🙌
+Du hast den zweiten Teil des Tutorials erfolgreich absolviert!🙌
 
 Lade den Code auf dein IoT-Cube herunter und leuchte mit deiner Handytaschenlampe
 auf den Sonnenlichtsensor. Leuchtet der LED-Strip?
 
-Klicke [Hier](https://makecode.microbit.org/#tutorial:github:kosta11111/pxt-smart-alarm-tutorial/docs/tutorials/smart-alarm-part2),
-um den zweiten Part des Tutorials zu starten!
+Klicke [Hier]((https://iot.claviscloud.ch/dashboards/all) und verbinde dein Cube mit dem passenden
+Dashboard.
 
 ```template
 basic.forever(function () {

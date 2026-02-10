@@ -44,7 +44,7 @@ let strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
 
 ## Schritt 2
 
-Jetzt teilen wir dem Programm mit einer Wenn-Abfrage
+Wir bauen eine Wenn-Abfrage ein, um zu prüfen, ob das Gewächshaus genug Sonnenlicht bekommt.
 
 * **Ziehe** den ``||logic:wenn wahr dann...ansonsten||`` Block in den **Dauerhaft-Codeblock**
 
