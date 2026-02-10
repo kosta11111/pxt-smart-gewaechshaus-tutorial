@@ -10,7 +10,7 @@ In dem ersten Teil des Tutorials entwickelst du ein überwachungssystem für ein
 Basilikum-Gewächshaus, welches bei zu wenig Sonnenlicht automatisch die Beleuchtung einschaltet.
 
 ## Wichtig! @showdialog
-Stecke den **Gassensor und Sonnenlichtsensor** zusammen mit einem **Hub** am **Port J0** an. 
+Stecke den **Sonnenlichtsensor** am **Port J0** an. 
 
 Stecke den **LED-Strip** am Port **J1** an.
 
@@ -30,8 +30,6 @@ richten wir diese ins Programm ein, um mit den Sensoren und Aktoren arbeiten zu 
 
 * **Ziehe** den ``||smartfeldSensoren:init Sonnenlicht sensor||`` Codeblock in den **Start**
 
-* Mache das gleiche mit den ``||smartfeldSensoren:innit Gassensor||`` und dem  ``||smartfeldSensoren:setze als 400ppm Kalibrationswert||`` Codeblock
-
 * **Ziehe** den ``||neopixel:setze strip||`` ebenfalls in den **Startblock**
 
 * **Ändere** die Pixel auf **16**
@@ -40,8 +38,6 @@ richten wir diese ins Programm ein, um mit den Sensoren und Aktoren arbeiten zu 
 
 ```blocks 
 smartfeldSensoren.initSunlight()
-smartfeldSensoren.gas_init()
-smartfeldSensoren.setGasCalibration()
 let strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
 ```
 
@@ -51,11 +47,9 @@ Jetzt teilen wir dem Programm mit einer Wenn-Abfrage
 
 * **Ziehe** den ``||logic:wenn wahr dann...ansonsten||`` Block in den **Dauerhaft-Codeblock**
 
-* **Ziehe** den ``||logic:0 < 0||`` Codeblock ins **Wahr-Feld** und ändere das **<** zu einem **> mit Unterstrich**
+* **Ziehe** den ``||logic:0 < 0||`` Codeblock ins **Wahr-Feld** und ändere das **<** zu einem **≥**
 
 * **Schreibe** in die linke null die Zahl **1000**
-
-* **Schreibe** in die linke Null eine **10**
 
 * **Ziehe** in die rechte Null den ``||smartfeldSensoren:gib sichtbares Licht||`` Block rein
 
@@ -80,6 +74,7 @@ leuchtet, und sonst ausgeschalten ist.
 
 * **Ziehe** in das **Ansonsten-Feld** den ``||neopixel:strip ausschalten||`` und den ``||neopixel:strip anzeigen||`` rein
 
+Der ``||neopixel:strip anzeigen||`` Codeblock ist wichtig, um bei änderungen den LED-Strip zu aktualisieren.
 
 
 ```blocks
