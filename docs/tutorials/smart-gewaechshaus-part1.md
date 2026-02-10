@@ -6,7 +6,7 @@ sensors=github:Smartfeld/pxt-sensorikAktorikSmartfeld
 # Alarmanlage
 
 ## Willkommen!
-In dem ersten Teil des Tutorials entwickelst du ein überwachungssystem für ein 
+In dem ersten Teil des Tutorials entwickelst du ein Überwachungssystem für ein 
 Basilikum-Gewächshaus, welches bei zu wenig Sonnenlicht automatisch die Beleuchtung einschaltet.
 
 ## Wichtig! @showdialog
