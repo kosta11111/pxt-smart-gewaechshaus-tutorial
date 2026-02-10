@@ -3,7 +3,7 @@ iot-cube=github:Smartfeld/pxt-iot-cube#v1.1.2
 sensors=github:Smartfeld/pxt-sensorikAktorikSmartfeld
 ```
 
-# Alarmanlage
+# Überwachungssystem-Gewächshaus
 
 ## Willkommen!
 In dem ersten Teil des Tutorials entwickelst du ein Überwachungssystem für ein 
@@ -96,5 +96,5 @@ Du hast den ersten Teil des Tutorials erfolgreich absolviert!🙌
 Lade den Code auf dein IoT-Cube herunter und leuchte mit deiner Handytaschenlampe
 auf den Sonnenlichtsensor. Leuchtet der LED-Strip?
 
-Klicke [Hier](https://makecode.microbit.org/#tutorial:github:kosta11111/pxt-smart-alarm-tutorial/docs/tutorials/smart-alarm-part2),
+Klicke [Hier](https://makecode.microbit.org/#tutorial:github:kosta11111/pxt-smart-gewaechshaus-tutorial/docs/tutorials/smart-gewaechshaus-part2),
 um den zweiten Part des Tutorials zu starten!
