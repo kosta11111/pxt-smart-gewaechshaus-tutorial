@@ -15,14 +15,14 @@ Stecke den **Sonnenlichtsensor** am **Port J0** an.
 
 Stecke den **LED-Strip** am Port **J1** an.
 
-![Tutorialbild](https://github.com/kosta11111/pxt-smart-alarm-tutorial/blob/master/docs/imgs/IoTCube.png?raw=true) 
+![Tutorialbild](https://github.com/kosta11111/pxt-smart-gewaechshaus-tutorial/blob/master/docs/imgs/IoTCube.png?raw=true) 
 
 Falls du **Probleme** beim Tutorial hast, kannst du beim Klicken auf der **Glühbirne** sehen,
 wie der Code ausschauen soll. 
-![Tutorialbild](https://github.com/kosta11111/pxt-smart-alarm-tutorial/blob/master/docs/imgs/Gl%C3%BChbirne.png?raw=true)
+![Tutorialbild](https://github.com/kosta11111/pxt-smart-gewaechshaus-tutorial/blob/master/docs/imgs/Gl%C3%BChbirne.png?raw=true)
 
 Klicke auf die **Codeschnipsel** im Text, um direkt zu den **Codeblöcken** zu kommen!
-![Tutorialbild](https://github.com/kosta11111/pxt-smart-alarm-tutorial/blob/master/docs/imgs/Codeschnipsel.png?raw=true)
+![Tutorialbild](https://github.com/kosta11111/pxt-smart-gewaechshaus-tutorial/blob/master/docs/imgs/Codeschnipsel.png?raw=true)
 
 ## Schritt 1
 
